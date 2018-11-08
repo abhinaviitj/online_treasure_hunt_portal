@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid rgb(204, 204, 221);
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+</head>
+
+<body>
+<h2>Here are the Final Results :</h2>
+<table>
+    <tr>
+        <th>Sr. No.</th>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Your Answer</th>
+        <th>Right/Wrong</th>
+    </tr>
+    {% for question in question_list %}
+        <tr>
+        <td>{{ question.sr_no }}</td>
+        <td>{{ question.question_text }}</td>
+        <td>{{ question.answer }}</td>
+        <td>{{ question.user_answer }}</td>
+        {% if question.score == 0 %}
+        <td>Wrong</td>
+            {% else %}
+            <td>Right</td>
+        {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+
+<p id="score" style="font-size: 30px; background-color:#c2f4f4; font-weight: bold"></p>
+
+<script>
+    var count = 0;
+    var n = 0;
+    var temp;
+    {% for question in question_list %}
+        n=n+1;
+        temp = {{ question.score }};
+        if(temp == 1) {
+            count = count + 1;
+        }
+    {% endfor %}
+    result = "Your Score is : "+count+" out of "+n;
+    document.getElementById("score").innerHTML=result;
+</script>
+
+</body>

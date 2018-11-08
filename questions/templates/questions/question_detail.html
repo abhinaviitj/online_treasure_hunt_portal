@@ -1,0 +1,8 @@
+<br>
+<h2>Q.{{ question.sr_no }} : {{ question.question_text }}</h2>
+<form action="/questions/{{ question.sr_no }}/answer/" method="post">
+    {% csrf_token %}
+    <label for="user_answer"><strong>Your Answer: </strong></label>
+    <input id="user_answer" type="text" name="user_answer">
+    <input type="submit" value="SUBMIT">
+</form>

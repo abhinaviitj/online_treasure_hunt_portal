@@ -1,0 +1,39 @@
+<style>
+    .button
+    {
+        display: inline-block;
+  	 	border-radius: 12px;
+        background-color: #f44d47;
+        border: none;
+        color: #FFFFFF;
+        text-align: center;
+        font-size: 26px;
+        padding: 20px;
+        width: 250px;
+        margin: 5px;
+    }
+</style>
+<br>
+<h3>Q {{ question.sr_no }}. {{ question.question_text }}</h3>
+<h3>Your Answer: {{ question.user_answer }}</h3>
+<p id="result"></p>
+<button id="btn" type="button" onclick="check_result()" style="font-size : 16px">Check Result</button>
+<p id="next_button"></p>
+
+<script>
+    function check_result() {
+        var xyz = {{ question.score }};
+        if (xyz===1) {
+            document.getElementById("result").innerHTML = "<h1>RIGHT ANSWER</h1>";
+        }
+        else {
+            document.getElementById("result").innerHTML = "<h1>WRONG ANSWER</h1>";
+        }
+        document.getElementById("btn").style.display = 'none';
+
+        var temp = {{ question.sr_no }} + 1;
+        url = '/questions/'+temp+'/';
+        html = "<br><br><button class='button'><a href='/questions/' onclick='this.href=url' style='text-decoration:none;color:#FFFFFF'>Next Question</a></button>";
+        document.getElementById("next_button").innerHTML = html;
+    }
+</script>
