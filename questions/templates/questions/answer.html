@@ -14,15 +14,16 @@
     }
 </style>
 <br>
-<h3>Q {{ question.sr_no }}. {{ question.question_text }}</h3>
-<h3>Your Answer: {{ question.user_answer }}</h3>
+<h3>Q {{ question.id }}. {{ question.question_text }}</h3>
+<h3>Your Answer: {{ res.user_answer }}</h3>
+<h2>You are : {{ user.id }}, {{ user.user_name }}</h2>
 <p id="result"></p>
 <button id="btn" type="button" onclick="check_result()" style="font-size : 16px">Check Result</button>
 <p id="next_button"></p>
 
 <script>
     function check_result() {
-        var xyz = {{ question.score }};
+        var xyz = {{ res.score }};
         if (xyz===1) {
             document.getElementById("result").innerHTML = "<h1>RIGHT ANSWER</h1>";
         }
@@ -31,8 +32,9 @@
         }
         document.getElementById("btn").style.display = 'none';
 
-        var temp = {{ question.sr_no }} + 1;
-        url = '/questions/'+temp+'/';
+        var temp = {{ question.id }} + 1;
+        var u = {{ user.id }};
+        url = '/questions/'+u+'/'+temp+'/';
         html = "<br><br><button class='button'><a href='/questions/' onclick='this.href=url' style='text-decoration:none;color:#FFFFFF'>Next Question</a></button>";
         document.getElementById("next_button").innerHTML = html;
     }

@@ -14,13 +14,22 @@ td, th {
     padding: 8px;
 }
 
-tr:nth-child(even) {
+tr:nth-child(odd) {
     background-color: #dddddd;
+}
+
+th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
 </style>
 </head>
 
 <body>
+<h1>hello {{ user.id }}, {{ user.user_name }}</h1>
 <h2>Here are the Final Results :</h2>
 <table>
     <tr>
@@ -32,15 +41,19 @@ tr:nth-child(even) {
     </tr>
     {% for question in question_list %}
         <tr>
-        <td>{{ question.sr_no }}</td>
+        <td>{{ question.id }}</td>
         <td>{{ question.question_text }}</td>
         <td>{{ question.answer }}</td>
-        <td>{{ question.user_answer }}</td>
-        {% if question.score == 0 %}
-        <td>Wrong</td>
-            {% else %}
-            <td>Right</td>
-        {% endif %}
+        {% for response in response_list %}
+            {% if response.question_id == question.id %}
+                <td>{{ response.user_answer }}</td>
+                {% if response.score == 0 %}
+                    <td>Wrong</td>
+                {% else %}
+                    <td>Right</td>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
         </tr>
     {% endfor %}
 </table>
@@ -51,9 +64,9 @@ tr:nth-child(even) {
     var count = 0;
     var n = 0;
     var temp;
-    {% for question in question_list %}
+    {% for response in response_list %}
         n=n+1;
-        temp = {{ question.score }};
+        temp = {{ response.score }};
         if(temp == 1) {
             count = count + 1;
         }

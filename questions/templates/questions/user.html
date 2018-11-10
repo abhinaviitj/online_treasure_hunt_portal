@@ -1,0 +1,7 @@
+<br>
+<form action="/questions/user/1/" method="post">
+    {% csrf_token %}
+    <label for="user_name"><strong>Your Name: </strong></label>
+    <input id="user_name" type="text" name="user_name">
+    <input type="submit" value="SUBMIT">
+</form>

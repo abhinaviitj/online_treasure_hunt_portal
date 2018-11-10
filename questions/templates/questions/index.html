@@ -19,13 +19,13 @@
     <ul>
         {% for question in question_list %}
             <h3>
-                <a href="/questions/{{ question.sr_no }}/" style="text-decoration:none">
-                    {{ question.sr_no }}.&nbsp &nbsp {{ question.question_text }}
+                <a href="/questions/{{ question.id }}/" style="text-decoration:none">
+                    {{ question.id }}.&nbsp &nbsp {{ question.question_text }}
                 </a>
             </h3>
         {% endfor %}
     </ul>
 {% else %}
     <p><h1><strong>No More Questions Available.</strong></h1></p>
-    <button class="button"><a href="/questions/report/" style="text-decoration:none;color:#FFFFFF">Proceed to Results</a></button>
+    <button class="button"><a href="/questions/{{ user.id }}/report/" style="text-decoration:none;color:#FFFFFF">Proceed to Results</a></button>
 {% endif %}

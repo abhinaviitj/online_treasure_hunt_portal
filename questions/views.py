@@ -1,56 +1,75 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Question
+from .models import Users, Question, Response
+from django.http import HttpResponse
 
 
 # Create your views here.
 
 
 def main(request):
-    question_list = Question.objects.order_by('sr_no')
-    for question in question_list:
-        question.score = 0
-        question.user_answer = ""
-        question.save()
     return render(request, 'questions/home.html')
 
 
-def index(request):
+def add_user(request):
+    return render(request, 'questions/user.html')
+
+
+def que_1(request, id):
+    name = request.POST.get('user_name')
+    u = Users(user_name=name)
+    u.save()
+    return question_detail(request, id, u.id)
+
+
+def index(request, uid):
     question_list = Question.objects.order_by('sr_no')
+    user = get_object_or_404(Users, pk=uid)
     context = {
         'question_list': question_list,
+        'user': user,
     }
     return render(request, 'questions/index.html', context)
 
 
-def question_detail(request, sr_no):
+def question_detail(request, id, uid):
+    user = get_object_or_404(Users, pk=uid)
     try:
-        question = Question.objects.get(pk=sr_no)
+        question = Question.objects.get(pk=id)
     except Question.DoesNotExist:
-        return render(request, 'questions/index.html')
+        return render(request, 'questions/index.html', {'user': user})
     context = {
         'question': question,
+        'user': user,
     }
     return render(request, 'questions/question_detail.html', context)
 
 
-def question_answer(request, sr_no):
-    question = get_object_or_404(Question, pk=sr_no)
-    question.user_answer = request.POST.get('user_answer')
-    question.score = 0
+def question_answer(request, uid, id):
+    question = get_object_or_404(Question, pk=id)
+    user = get_object_or_404(Users, pk=uid)
+    user_ans = request.POST.get('user_answer')
     str1 = question.answer
-    str2 = question.user_answer
+    str2 = user_ans
+    skore = 0
     if sorted(str1.lower()) == sorted(str2.lower()):
-        question.score = 1
-    question.save()
+        skore = 1
+    res = Response(user_answer=user_ans, score=skore, question=question, user_name=user)
+    res.save()
     context = {
         'question': question,
+        'res': res,
+        'user': user,
     }
     return render(request, 'questions/answer.html', context)
 
 
-def report(request):
-    question_list = Question.objects.order_by('sr_no')
+def report(request, uid):
+    question_list = Question.objects.order_by('id')
+    user = get_object_or_404(Users, pk=uid)
+    response_list = Response.objects.order_by('question_id')
     context = {
         'question_list': question_list,
+        'user': user,
+        'response_list': response_list,
     }
     return render(request, 'questions/report.html', context)
