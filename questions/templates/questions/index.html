@@ -18,7 +18,7 @@
     <ul>
         {% for question in question_list %}
             <h3>
-                <a href="/questions/{{ question.id }}/" style="text-decoration:none">
+                <a href="/questions/{{ user.id }}/{{ question.id }}/" style="text-decoration:none">
                     {{ question.id }}.&nbsp &nbsp {{ question.question_text }}
                 </a>
             </h3>
