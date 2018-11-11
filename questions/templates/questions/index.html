@@ -1,8 +1,7 @@
 <style>
-    .button
-    {
+    .button {
         display: inline-block;
-  	 	border-radius: 12px;
+        border-radius: 12px;
         background-color: #f44d47;
         border: none;
         color: #FFFFFF;
@@ -27,5 +26,7 @@
     </ul>
 {% else %}
     <p><h1><strong>No More Questions Available.</strong></h1></p>
-    <button class="button"><a href="/questions/{{ user.id }}/report/" style="text-decoration:none;color:#FFFFFF">Proceed to Results</a></button>
+    <a href="/questions/{{ user.id }}/report/" style="text-decoration:none;color:#FFFFFF">
+        <button class="button">Proceed to Results</button>
+    </a>
 {% endif %}

@@ -1,8 +1,7 @@
 <style>
-    .button
-    {
+    .button {
         display: inline-block;
-  	 	border-radius: 12px;
+        border-radius: 12px;
         background-color: #f44d47;
         border: none;
         color: #FFFFFF;
@@ -13,10 +12,9 @@
         margin: 5px;
     }
 </style>
-<br>
+<h3 style="text-align: right">Hello {{ user.user_name }}</h3>
 <h3>Q {{ question.id }}. {{ question.question_text }}</h3>
 <h3>Your Answer: {{ res.user_answer }}</h3>
-<h2>You are : {{ user.id }}, {{ user.user_name }}</h2>
 <p id="result"></p>
 <button id="btn" type="button" onclick="check_result()" style="font-size : 16px">Check Result</button>
 <p id="next_button"></p>
@@ -24,7 +22,7 @@
 <script>
     function check_result() {
         var xyz = {{ res.score }};
-        if (xyz===1) {
+        if (xyz === 1) {
             document.getElementById("result").innerHTML = "<h1>RIGHT ANSWER</h1>";
         }
         else {
@@ -32,10 +30,10 @@
         }
         document.getElementById("btn").style.display = 'none';
 
-        var temp = {{ question.id }} + 1;
+        var temp = {{ question.id }} +1;
         var u = {{ user.id }};
-        url = '/questions/'+u+'/'+temp+'/';
-        html = "<br><br><button class='button'><a href='/questions/' onclick='this.href=url' style='text-decoration:none;color:#FFFFFF'>Next Question</a></button>";
+        url = '/questions/' + u + '/' + temp + '/';
+        html = "<br><br><a href='/questions/' onclick='this.href=url' style='text-decoration:none;color:#FFFFFF'><button class='button'>Next Question</button></a>";
         document.getElementById("next_button").innerHTML = html;
     }
 </script>

@@ -19,7 +19,7 @@ class Question(models.Model):
 class Response(models.Model):
     user_answer = models.TextField(default="No Answer")
     score = models.IntegerField(default=0)
-    question = models.OneToOneField(Question, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
     user_name = models.ForeignKey(Users, on_delete=models.CASCADE)
 
     def __str__(self):

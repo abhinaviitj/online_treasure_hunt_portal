@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-td, th {
-    border: 1px solid rgb(204, 204, 221);
-    text-align: left;
-    padding: 8px;
-}
+        td, th {
+            border: 1px solid rgb(204, 204, 221);
+            text-align: left;
+            padding: 8px;
+        }
 
-tr:nth-child(odd) {
-    background-color: #dddddd;
-}
+        tr:nth-child(odd) {
+            background-color: #dddddd;
+        }
 
-th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-}
-</style>
+        th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
-<h1>hello {{ user.id }}, {{ user.user_name }}</h1>
+<h1>Hello {{ user.user_name }}</h1>
 <h2>Here are the Final Results :</h2>
 <table>
     <tr>
@@ -41,19 +41,19 @@ th {
     </tr>
     {% for question in question_list %}
         <tr>
-        <td>{{ question.id }}</td>
-        <td>{{ question.question_text }}</td>
-        <td>{{ question.answer }}</td>
-        {% for response in response_list %}
-            {% if response.question_id == question.id %}
-                <td>{{ response.user_answer }}</td>
-                {% if response.score == 0 %}
-                    <td>Wrong</td>
-                {% else %}
-                    <td>Right</td>
+            <td>{{ question.id }}</td>
+            <td>{{ question.question_text }}</td>
+            <td>{{ question.answer }}</td>
+            {% for response in response_list %}
+                {% if response.question_id == question.id %}
+                    <td>{{ response.user_answer }}</td>
+                    {% if response.score == 0 %}
+                        <td>Wrong</td>
+                    {% else %}
+                        <td>Right</td>
+                    {% endif %}
                 {% endif %}
-            {% endif %}
-        {% endfor %}
+            {% endfor %}
         </tr>
     {% endfor %}
 </table>
@@ -65,14 +65,14 @@ th {
     var n = 0;
     var temp;
     {% for response in response_list %}
-        n=n+1;
+        n = n + 1;
         temp = {{ response.score }};
-        if(temp == 1) {
+        if (temp == 1) {
             count = count + 1;
         }
     {% endfor %}
-    result = "Your Score is : "+count+" out of "+n;
-    document.getElementById("score").innerHTML=result;
+    result = "Your Score is : " + count + " out of " + n;
+    document.getElementById("score").innerHTML = result;
 </script>
 
 </body>

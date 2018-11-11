@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Users, Question, Response
-from django.http import HttpResponse
 
 
 # Create your views here.
@@ -22,8 +21,8 @@ def que_1(request, id):
 
 
 def index(request, uid):
-    question_list = Question.objects.order_by('sr_no')
-    user = get_object_or_404(Users, pk=uid)
+    question_list = Question.objects.order_by('id')
+    user = get_object_or_404(Users, id=uid)
     context = {
         'question_list': question_list,
         'user': user,
@@ -32,9 +31,9 @@ def index(request, uid):
 
 
 def question_detail(request, id, uid):
-    user = get_object_or_404(Users, pk=uid)
+    user = get_object_or_404(Users, id=uid)
     try:
-        question = Question.objects.get(pk=id)
+        question = Question.objects.get(id=id)
     except Question.DoesNotExist:
         return render(request, 'questions/index.html', {'user': user})
     context = {
@@ -45,8 +44,8 @@ def question_detail(request, id, uid):
 
 
 def question_answer(request, uid, id):
-    question = get_object_or_404(Question, pk=id)
-    user = get_object_or_404(Users, pk=uid)
+    question = get_object_or_404(Question, id=id)
+    user = get_object_or_404(Users, id=uid)
     user_ans = request.POST.get('user_answer')
     str1 = question.answer
     str2 = user_ans
@@ -65,8 +64,8 @@ def question_answer(request, uid, id):
 
 def report(request, uid):
     question_list = Question.objects.order_by('id')
-    user = get_object_or_404(Users, pk=uid)
-    response_list = Response.objects.order_by('question_id')
+    user = get_object_or_404(Users, id=uid)
+    response_list = Response.objects.filter(user_name_id=uid)
     context = {
         'question_list': question_list,
         'user': user,
